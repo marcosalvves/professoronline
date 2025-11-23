@@ -6,27 +6,29 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "disponibilidade")
+@Table(name = "professor_disciplina")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DisponibilidadeModel {
+public class ProfessorDisciplinaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_disponibilidade")
-    private Integer id;
+    @Column(name = "id_professor_disciplina")
+    private Integer idProfessorDisciplina;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_professor", nullable = false)
     private Integer professor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_horario_padrao", nullable = false)
-    private HorarioPadraoModel horarioPadraoModel;
+    @JoinColumn(name = "id_disciplina", nullable = false)
+    private DisciplinaModel disciplinaModel;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_semestre", nullable = false)
     private SemestreModel semestreModel;
 
+    @Column(name = "prioridade", nullable = false)
+    private Integer prioridade;
 }
