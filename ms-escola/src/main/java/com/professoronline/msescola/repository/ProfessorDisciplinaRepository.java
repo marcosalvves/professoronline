@@ -1,0 +1,14 @@
+package com.professoronline.msescola.repository;
+
+import com.professoronline.msescola.dto.ProfessorDisciplinaNomesDTO;
+import com.professoronline.msescola.model.ProfessorDisciplinaModel;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface ProfessorDisciplinaRepository extends JpaRepository<ProfessorDisciplinaModel, Integer> {
+
+}
