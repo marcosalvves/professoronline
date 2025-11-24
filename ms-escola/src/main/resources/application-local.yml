@@ -1,29 +1,19 @@
 spring:
-  server:
-    port: 8082
-
-  config:
-    activate:
-      on-profile: local
-
+  application:
+    name: professor_oline
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ms-escola
+    username: admin
+    password: 123456
+    driver-class-name: org.postgresql.Driver
   jpa:
-    # ddl-auto deve estar aqui, fora do bloco 'properties'
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         format_sql: true
         show_sql: true
-
-
   flyway:
     enabled: true
     baseline-on-migrate: true
     locations: classpath:db/migration
-
-  datasource:
-    url: jdbc:postgresql://localhost:5432/ms-escola
-    username: admin
-    password: 123456
-    driver-class-name: org.postgresql.Driver
-
