@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: 'postgres:16-alpine'
+    container_name: db-auth  # NOME ÚNICO
+    environment:
+      - 'POSTGRES_DB=authdb' # Ajustado para bater com seu spring
+      - 'POSTGRES_USER=authms' # Ajustado para bater com seu spring
+      - 'POSTGRES_PASSWORD=123456'
+    ports:
+      - '5433:5432' # <--- ATENÇÃO: Mapeia a 5433 do PC para a 5432 do container
+    networks:
+      - auth-network
+
+  pgadmin:
+    image: 'dpage/pgadmin4:latest'
+    container_name: pgadmin-auth
+    environment:
+      - 'PGADMIN_DEFAULT_EMAIL=admin@admin.com'
+      - 'PGADMIN_DEFAULT_PASSWORD=admin'
+    ports:
+      - '15433:80' # <--- ATENÇÃO: Porta diferente para não colidir com o outro PgAdmin
+    networks:
+      - auth-network
+    depends_on:
+      - postgres
+
+networks:
+  auth-network:
+    driver: bridge
