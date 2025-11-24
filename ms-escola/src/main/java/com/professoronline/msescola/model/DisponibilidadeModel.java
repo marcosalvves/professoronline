@@ -17,9 +17,8 @@ public class DisponibilidadeModel {
     @Column(name = "id_disponibilidade")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_professor", nullable = false)
-    private Integer professor;
+    @Column(name = "id_professor", nullable = false)
+    private Integer idProfessor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_horario_padrao", nullable = false)

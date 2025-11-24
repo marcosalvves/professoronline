@@ -17,8 +17,7 @@ public class ProfessorDisciplinaModel {
     @Column(name = "id_professor_disciplina")
     private Integer idProfessorDisciplina;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_professor", nullable = false)
+    @Column(name = "id_professor", nullable = false)
     private Integer professor;
 
     @ManyToOne(fetch = FetchType.LAZY)

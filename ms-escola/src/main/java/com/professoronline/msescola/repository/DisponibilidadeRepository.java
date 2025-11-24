@@ -12,17 +12,27 @@ import java.util.List;
 
 @Repository
 public interface DisponibilidadeRepository extends JpaRepository<DisponibilidadeModel, Integer> {
-    @Query("SELECT new com.CodeMiners.apiback03.dto.DisponibilidadeDTO(d) " +
-            "FROM Disponibilidade d " +
-            "JOIN d.horarioPadrao h " +
-            "WHERE d.professor = :professor " +
+
+    // Query corrigida para buscar a lista ordenada
+    @Query("SELECT d " +
+            "FROM DisponibilidadeModel d " +
+            "JOIN d.horarioPadraoModel h " +
+            "WHERE d.idProfessor = :professorId " +
             "ORDER BY " +
             "CASE h.turno " +
             "   WHEN 'Matutino' THEN 1 " +
             "   WHEN 'Vespertino' THEN 2 " +
             "   WHEN 'Noturno' THEN 3 " +
             "   ELSE 4 END")
-    List<DisponibilidadeDTO> findDTOByProfessorOrderByTurnoCustom(@Param("professor") Integer professor);
+    List<DisponibilidadeModel> findByProfessorIdOrderByTurnoCustom(@Param("professorId") Integer professorId);
 
-    boolean existsByProfessorAndHorarioPadraoAndSemestre(Integer professor, HorarioPadraoModel horarioPadrao, SemestreModel semestreModel);
+    // Query manual para verificar existência (evita o erro de parse do "IdProfessor")
+    @Query("SELECT COUNT(d) > 0 " +
+            "FROM DisponibilidadeModel d " +
+            "WHERE d.idProfessor = :professorId " +
+            "AND d.horarioPadraoModel = :horario " +
+            "AND d.semestreModel = :semestre")
+    boolean existsDuplicidade(@Param("professorId") Integer professorId,
+                              @Param("horario") HorarioPadraoModel horario,
+                              @Param("semestre") SemestreModel semestre);
 }

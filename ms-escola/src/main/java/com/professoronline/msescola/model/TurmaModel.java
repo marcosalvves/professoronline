@@ -33,8 +33,7 @@ public class TurmaModel {
     @JoinColumn(name = "id_horario_padrao")
     private HorarioPadraoModel horarioPadrao;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_professor")
+    @Column(name = "id_professor", nullable = false)
     private Integer professor;
 
 }
