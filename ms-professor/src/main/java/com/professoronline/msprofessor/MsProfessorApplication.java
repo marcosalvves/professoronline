@@ -1,14 +1,13 @@
-package com.professoronline.msescola;
+package com.professoronline.msprofessor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@EnableFeignClients
-public class MsescolaApplication {
+public class MsProfessorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MsescolaApplication.class, args);
+		SpringApplication.run(MsProfessorApplication.class, args);
 	}
 
 }

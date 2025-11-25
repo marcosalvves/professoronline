@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 // "ms-professor" é o nome do serviço registrado no Eureka ou a URL direta
-@FeignClient(name = "ms-professor", path = "/professores")
+@FeignClient(name = "ms-professor", path = "api//professores")
 public interface ProfessorClient {
 
     @GetMapping("/{id}")

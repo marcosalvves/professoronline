@@ -1,0 +1,88 @@
+services:
+  # 1. BASE DE DADOS MS-ESCOLA (PORTA 5432)
+  db_escola:
+    image: 'postgres:16-alpine'
+    container_name: db-msescola
+    restart: unless-stopped
+    environment:
+      - 'POSTGRES_DB=ms-escola'
+      - 'POSTGRES_USER=admin'
+      - 'POSTGRES_PASSWORD=123456'
+    ports:
+      - '5432:5432' # Host:Container
+    networks:
+      - microservices-network
+
+  # 2. BASE DE DADOS AUTH-MS (PORTA 5433 - Conforme sua config)
+  db_auth:
+    image: 'postgres:16-alpine'
+    container_name: db-auth
+    restart: unless-stopped
+    environment:
+      - 'POSTGRES_DB=authdb'
+      - 'POSTGRES_USER=authms'
+      - 'POSTGRES_PASSWORD=123456'
+    ports:
+      - '5433:5432' # Mapeia 5433 do Host para 5432 do Container
+    networks:
+      - microservices-network
+
+  # 3. BASE DE DADOS MS-PROFESSOR (PORTA 5434 - Conforme sua config local)
+  db_professor:
+    image: 'postgres:16-alpine'
+    container_name: db-mprofessor
+    restart: unless-stopped
+    environment:
+      - 'POSTGRES_DB=ms-professor'
+      - 'POSTGRES_USER=admin'
+      - 'POSTGRES_PASSWORD=123456'
+    ports:
+      - '5434:5432' # Mapeia 5434 do Host para 5432 do Container
+    networks:
+      - microservices-network
+
+  # PGADMIN MS-ESCOLA
+  pgadmin_escola:
+    image: 'dpage/pgadmin4:latest'
+    container_name: pgadmin-escola
+    environment:
+      - 'PGADMIN_DEFAULT_EMAIL=admin@admin.com'
+      - 'PGADMIN_DEFAULT_PASSWORD=admin'
+    ports:
+      - '15432:80'
+    networks:
+      - microservices-network
+    depends_on:
+      - db_escola
+
+  # PGADMIN AUTH-MS
+  pgadmin_auth:
+    image: 'dpage/pgadmin4:latest'
+    container_name: pgadmin-auth
+    environment:
+      - 'PGADMIN_DEFAULT_EMAIL=admin@admin.com'
+      - 'PGADMIN_DEFAULT_PASSWORD=admin'
+    ports:
+      - '15433:80'
+    networks:
+      - microservices-network
+    depends_on:
+      - db_auth
+
+  # PGADMIN MS-PROFESSOR
+  pgadmin_professor:
+    image: 'dpage/pgadmin4:latest'
+    container_name: pgadmin-professor
+    environment:
+      - 'PGADMIN_DEFAULT_EMAIL=admin@admin.com'
+      - 'PGADMIN_DEFAULT_PASSWORD=admin'
+    ports:
+      - '15434:80'
+    networks:
+      - professor-network
+    depends_on:
+      - postgres
+
+networks:
+  microservices-network:
+    driver: bridge

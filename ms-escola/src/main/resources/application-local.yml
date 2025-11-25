@@ -17,3 +17,14 @@ spring:
     enabled: true
     baseline-on-migrate: true
     locations: classpath:db/migration
+    # Configuração do Feign Client
+    feign:
+      client:
+        config:
+          ms-professor:
+            connectTimeout: 5000
+            readTimeout: 5000
+    ms-professor:
+      ribbon:
+        # URL completa do microsserviço Professor (o serviço está na porta 8081)
+        listOfServers: http://localhost:8081
