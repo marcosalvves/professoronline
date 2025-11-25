@@ -1,13 +1,23 @@
 package com.professoronline.msprofessor.dto;
 
+import com.professoronline.msprofessor.model.FormacaoAcademica;
+
 public record FormacaoAcademicaDTO(
         Integer idFormacao,
-        Integer idProfessor, // Mantido para referência, mas virá do token/path
+        Integer idProfessor,
         Integer idTipoCategoria,
         String nomeCurso,
         String nomeInstituicaoFormacao,
         Integer anoConclusao
 ) {
-    // É necessária a criação de um construtor de mapeamento a partir do modelo FormacaoAcademica.java local
-    // public FormacaoAcademicaDTO(FormacaoAcademica formacaoAcademica) { ... }
+    public FormacaoAcademicaDTO(FormacaoAcademica formacaoAcademica) {
+        this(
+                formacaoAcademica.getIdFormacaoAcademica(),
+                formacaoAcademica.getIdProfessor().getIdProfessor(),
+                formacaoAcademica.getIdTipoCategoria().getId(),
+                formacaoAcademica.getNomeCurso(),
+                formacaoAcademica.getNomeInstituicaoFormacao(),
+                formacaoAcademica.getAnoConclusao()
+        );
+    }
 }

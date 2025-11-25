@@ -79,9 +79,9 @@ services:
     ports:
       - '15434:80'
     networks:
-      - professor-network
+      - microservices-network
     depends_on:
-      - postgres
+      - db_professor
 
 networks:
   microservices-network:
